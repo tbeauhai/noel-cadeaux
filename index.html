@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mes cadeaux de Noël</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F8F4; --surface:#FFFFFF; --ink:#18241F; --muted:#5C6B63; --line:#DDE3DC;
+  --pine:#1D4A3A; --pine-soft:#E3EEE8; --berry:#A8233A; --berry-soft:#F6E2E5;
+  --gold:#B8862A; --gold-soft:#F5EBD5;
+  --display:"Young Serif", Georgia, "Times New Roman", serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#101815; --surface:#17221E; --ink:#E9EFEA; --muted:#9AAAA1; --line:#2A3832;
+    --pine:#7FC4A6; --pine-soft:#1E3329; --berry:#F0788C; --berry-soft:#3A1E24;
+    --gold:#E2B25A; --gold-soft:#352A16; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#101815; --surface:#17221E; --ink:#E9EFEA; --muted:#9AAAA1; --line:#2A3832;
+  --pine:#7FC4A6; --pine-soft:#1E3329; --berry:#F0788C; --berry-soft:#3A1E24;
+  --gold:#E2B25A; --gold-soft:#352A16; color-scheme: dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px 64px}
+
+/* En-tête */
+header.top{padding:40px 0 28px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;border-bottom:1px solid var(--line)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.05;margin:0;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:10px 0 0}
+.count{text-align:right}
+.count .n{font-family:var(--display);font-size:clamp(3rem,8vw,5.2rem);line-height:.9;color:var(--berry)}
+.count .l{color:var(--muted);font-size:.95rem}
+
+/* Bilan */
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:24px 0 8px;border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
+.summary div{padding:16px 18px;border-right:1px solid var(--line)}
+.summary div:last-child{border-right:0}
+.summary .v{font-size:1.5rem;font-weight:700;font-variant-numeric:tabular-nums}
+.summary .k{color:var(--muted);font-size:.9rem}
+.ribbon{height:10px;border-radius:999px;background:var(--pine-soft);overflow:hidden;margin:14px 0 4px}
+.ribbon i{display:block;height:100%;background:var(--pine);border-radius:999px;transition:width .4s ease}
+.ribbon.over i{background:var(--berry)}
+.ribbon-l{display:flex;justify-content:space-between;color:var(--muted);font-size:.88rem}
+
+/* Barre d'outils */
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:28px 0 18px}
+.tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px}
+.tabs button{border:0;background:none;padding:8px 16px;border-radius:999px;font-weight:600;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--pine);color:var(--bg)}
+.btn{border:0;border-radius:10px;padding:10px 16px;font-weight:600;background:var(--pine);color:var(--bg)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.danger{background:var(--berry);color:#fff}
+.btn.small{padding:6px 12px;font-size:.9rem}
+.save{color:var(--muted);font-size:.85rem;min-height:1.2em}
+
+/* Cartes proches */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+.person{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 18px 12px;position:relative}
+.person::before{content:"";position:absolute;left:28px;top:-1px;width:14px;height:22px;background:var(--berry);clip-path:polygon(0 0,100% 0,100% 100%,50% 75%,0 100%)}
+.p-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding-top:6px}
+.p-name{font-family:var(--display);font-size:1.45rem;margin:0;line-height:1.2;word-break:break-word}
+.p-note{color:var(--muted);font-size:.9rem;margin:2px 0 0}
+.p-budget{font-size:.9rem;color:var(--muted);margin-top:10px;display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
+.p-budget b{color:var(--ink)}
+.p-budget .over{color:var(--berry);font-weight:600}
+.icon{border:0;background:none;padding:6px;border-radius:8px;color:var(--muted);line-height:0}
+.icon:hover{background:var(--pine-soft);color:var(--ink)}
+.icon svg{width:18px;height:18px}
+ul.gifts{list-style:none;margin:12px 0 0;padding:0}
+ul.gifts li{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.g-title{font-weight:500;word-break:break-word}
+.g-title a{color:inherit;text-decoration-color:var(--gold);text-underline-offset:3px}
+.g-meta{color:var(--muted);font-size:.85rem}
+.g-price{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+.chip{border:1px solid transparent;border-radius:999px;padding:3px 10px;font-size:.8rem;font-weight:600;white-space:nowrap;min-width:78px}
+.chip.idee{background:var(--gold-soft);color:var(--gold)}
+.chip.achete{background:var(--pine-soft);color:var(--pine)}
+.chip.emballe{background:var(--berry-soft);color:var(--berry)}
+li.done .g-title{color:var(--muted)}
+.add-gift{width:100%;margin-top:6px;border:1px dashed var(--line);background:none;border-radius:10px;padding:9px;color:var(--muted);font-weight:600}
+.add-gift:hover{border-color:var(--pine);color:var(--pine)}
+.empty{text-align:center;padding:56px 20px;border:1px dashed var(--line);border-radius:16px;color:var(--muted)}
+.empty h2{font-family:var(--display);font-weight:400;color:var(--ink);margin:0 0 6px}
+
+/* Liste d'achats */
+.shop{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.shop-row{display:grid;grid-template-columns:auto 1fr auto auto;gap:14px;align-items:center;padding:12px 18px;border-top:1px solid var(--line)}
+.shop-row:first-child{border-top:0}
+.shop-row .who{color:var(--muted);font-size:.85rem}
+.shop-group{padding:10px 18px;background:var(--bg);font-weight:600;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
+.shop-group:first-child{border-top:0}
+.check{width:22px;height:22px;accent-color:var(--pine)}
+
+/* Fenêtres */
+dialog{border:1px solid var(--line);border-radius:16px;padding:0;background:var(--surface);color:var(--ink);width:min(480px,calc(100vw - 32px))}
+dialog::backdrop{background:rgba(10,20,15,.45)}
+dialog form{padding:22px}
+dialog h2{font-family:var(--display);font-weight:400;margin:0 0 16px;font-size:1.5rem}
+label{display:block;font-weight:600;font-size:.9rem;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+textarea{min-height:70px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.actions{display:flex;gap:10px;justify-content:space-between;margin-top:20px;flex-wrap:wrap}
+.actions .right{display:flex;gap:10px;margin-left:auto}
+.hint{color:var(--muted);font-size:.85rem;margin:4px 0 0}
+
+/* Connexion */
+.who-bar{margin:10px 0 0;color:var(--muted);font-size:.9rem;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.who-bar b{color:var(--ink);font-weight:600;word-break:break-all}
+.link{border:0;background:none;padding:0;color:var(--pine);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.auth{display:flex;justify-content:center;padding:48px 0}
+.auth-card{width:min(440px,100%);background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:28px;position:relative}
+.auth-card::before{content:"";position:absolute;left:28px;top:-1px;width:14px;height:22px;background:var(--berry);clip-path:polygon(0 0,100% 0,100% 100%,50% 75%,0 100%)}
+.auth-card h2{font-family:var(--display);font-weight:400;font-size:1.6rem;margin:8px 0 6px}
+.auth-card p{color:var(--muted);margin:0 0 8px}
+.auth-card form .btn{width:100%;margin-top:14px}
+.auth-card .actions .btn{width:auto;margin-top:0}
+.auth-msg{min-height:1.4em;margin-top:12px!important}
+.auth-msg.err{color:var(--berry)!important}
+[hidden]{display:none!important}
+
+@media (max-width:720px){
+  header.top{grid-template-columns:1fr;gap:12px}
+  .count{text-align:left;display:flex;align-items:baseline;gap:10px}
+  .summary{grid-template-columns:1fr 1fr}
+  .summary div:nth-child(2){border-right:0}
+  .summary div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .shop-row{grid-template-columns:auto 1fr auto}
+  .shop-row .chip{display:none}
+  .grid{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Mes cadeaux de Noël</h1>
+      <p class="sub">Les idées, les achats et le budget pour chacun de mes proches.</p>
+      <p class="who-bar" id="whoBar" hidden>Connecté avec <b id="whoEmail"></b><button class="link" id="logout" type="button">Se déconnecter</button></p>
+    </div>
+    <div class="count"><div class="n" id="days">–</div><div class="l" id="daysLabel">jours avant Noël</div></div>
+  </header>
+
+  <section class="auth" id="auth" hidden>
+    <div class="auth-card">
+      <h2 id="authTitle">Connexion</h2>
+      <p id="authText">Saisissez votre adresse e-mail pour recevoir un lien de connexion.</p>
+      <form id="fEmail" novalidate>
+        <label for="aEmail">Adresse e-mail</label>
+        <input id="aEmail" type="email" required autocomplete="email" placeholder="vous@exemple.fr">
+        <button class="btn" type="submit" id="aSend">Recevoir le lien de connexion</button>
+      </form>
+      <div id="sent" hidden>
+        <div class="actions">
+          <button type="button" class="btn ghost" id="aBack">Changer d’adresse</button>
+          <div class="right"><button type="button" class="btn" id="aResend">Renvoyer le lien</button></div>
+        </div>
+      </div>
+      <div id="denied" hidden><button class="btn ghost" type="button" id="aLogoutDenied">Utiliser une autre adresse</button></div>
+      <p class="auth-msg" id="authMsg" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <div id="app">
+  <section class="summary" aria-label="Bilan">
+    <div><div class="v" id="sSpent">0 €</div><div class="k">dépensés</div></div>
+    <div><div class="v" id="sBudget">0 €</div><div class="k">de budget total</div></div>
+    <div><div class="v" id="sToBuy">0</div><div class="k">cadeaux encore à acheter</div></div>
+    <div><div class="v" id="sWrapped">0</div><div class="k">cadeaux emballés</div></div>
+  </section>
+  <div class="ribbon" id="ribbon"><i style="width:0"></i></div>
+  <div class="ribbon-l"><span id="rLeft"></span><span id="rPct"></span></div>
+
+  <div class="bar">
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-tab="people">Par proche</button>
+      <button role="tab" aria-selected="false" data-tab="shop">Liste d’achats</button>
+    </div>
+    <span class="save" id="save" aria-live="polite"></span>
+    <button class="btn" id="addPerson">Ajouter un proche</button>
+  </div>
+
+  <main id="view"></main>
+  </div>
+</div>
+
+<dialog id="dPerson">
+  <form method="dialog" id="fPerson">
+    <h2 id="dPersonTitle">Ajouter un proche</h2>
+    <label for="pName">Prénom ou nom</label>
+    <input id="pName" required maxlength="60" autocomplete="off">
+    <label for="pBudget">Budget (€)</label>
+    <input id="pBudget" type="number" min="0" step="1" inputmode="decimal" placeholder="Facultatif">
+    <label for="pNote">Pense-bête</label>
+    <textarea id="pNote" maxlength="400" placeholder="Tailles, goûts, ce qu’il ou elle a déjà…"></textarea>
+    <div class="actions">
+      <button type="button" class="btn danger small" id="pDelete" hidden>Supprimer</button>
+      <div class="right">
+        <button type="button" class="btn ghost" data-close>Annuler</button>
+        <button type="submit" class="btn">Enregistrer</button>
+      </div>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dGift">
+  <form method="dialog" id="fGift">
+    <h2 id="dGiftTitle">Ajouter un cadeau</h2>
+    <label for="gTitle">Cadeau</label>
+    <input id="gTitle" required maxlength="120" autocomplete="off">
+    <div class="row2">
+      <div><label for="gPrice">Prix (€)</label><input id="gPrice" type="number" min="0" step="0.01" inputmode="decimal"></div>
+      <div><label for="gStatus">Statut</label>
+        <select id="gStatus"><option value="idee">Idée</option><option value="achete">Acheté</option><option value="emballe">Emballé</option></select>
+      </div>
+    </div>
+    <label for="gWhere">Où l’acheter</label>
+    <input id="gWhere" maxlength="80" placeholder="Magasin, site…">
+    <label for="gLink">Lien</label>
+    <input id="gLink" type="url" placeholder="https://">
+    <label for="gNote">Note</label>
+    <textarea id="gNote" maxlength="400"></textarea>
+    <div class="actions">
+      <button type="button" class="btn danger small" id="gDelete" hidden>Supprimer</button>
+      <div class="right">
+        <button type="button" class="btn ghost" data-close>Annuler</button>
+        <button type="submit" class="btn">Enregistrer</button>
+      </div>
+    </div>
+  </form>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script>
+(function(){
+  const STATUS = {idee:"Idée", achete:"Acheté", emballe:"Emballé"};
+  const NEXT = {idee:"achete", achete:"emballe", emballe:"idee"};
+  const LS_KEY = "noel-cadeaux-v1";
+  let state = {people:[]};
+  let tab = "people";
+
+  const $ = s => document.querySelector(s);
+  const eur = n => { const v=Number(n)||0, d=(v%1)?2:0; return v.toLocaleString("fr-FR",{style:"currency",currency:"EUR",minimumFractionDigits:d,maximumFractionDigits:d}); };
+  const uid = () => (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2)+Date.now().toString(36));
+  const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const safeUrl = u => { try{ const x=new URL(u); return /^https?:$/.test(x.protocol)? x.href : ""; }catch(e){ return ""; } };
+  const ICON_EDIT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+
+  /* ---------- Stockage : Supabase (partagé) ou navigateur (local) ---------- */
+  const cfg = window.NOEL_CONFIG || {};
+  const configured = cfg.supabaseUrl && cfg.supabaseAnonKey && !/VOTRE|YOUR/.test(cfg.supabaseUrl + cfg.supabaseAnonKey);
+  const sb = configured && window.supabase ? window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey) : null;
+  const setSave = t => { $("#save").textContent = t; };
+
+  function rowToPerson(r){ return {id:r.id, name:r.name, budget:r.budget, note:r.note||"", gifts:[]}; }
+  function rowToGift(r){ return {id:r.id, title:r.title, price:r.price, status:STATUS[r.status]?r.status:"idee", where:r.where_to_buy||"", link:r.link||"", note:r.note||""}; }
+  const personRow = p => ({id:p.id, name:p.name, budget:p.budget, note:p.note});
+  const giftRow = (p,g) => ({id:g.id, person_id:p.id, title:g.title, price:g.price, status:g.status, where_to_buy:g.where, link:g.link, note:g.note});
+
+  async function loadRemote(){
+    const [pr, gr] = await Promise.all([
+      sb.from("people").select("*").order("created_at"),
+      sb.from("gifts").select("*").order("created_at")
+    ]);
+    if (pr.error) throw pr.error;
+    if (gr.error) throw gr.error;
+    const people = pr.data.map(rowToPerson);
+    const byId = Object.fromEntries(people.map(p=>[p.id,p]));
+    gr.data.forEach(r => { if (byId[r.person_id]) byId[r.person_id].gifts.push(rowToGift(r)); });
+    state = {people};
+  }
+
+  function loadLocal(){
+    try{
+      const d = JSON.parse(localStorage.getItem(LS_KEY) || "null");
+      if (d && Array.isArray(d.people)) state = {people: d.people.map(p=>({...p, gifts:(p.gifts||[]).map(g=>({...g, status:STATUS[g.status]?g.status:"idee"}))}))};
+    }catch(e){}
+  }
+  function saveLocal(){
+    try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); setSave("Enregistré sur cet appareil"); }
+    catch(e){ setSave("Échec de l’enregistrement dans le navigateur."); }
+  }
+
+  // Applique le changement à l'écran tout de suite, puis l'envoie à la base.
+  async function sync(remoteCall){
+    render();
+    if (!sb){ saveLocal(); return; }
+    setSave("Enregistrement…");
+    try{
+      const {error} = await remoteCall();
+      if (error) throw error;
+      setSave("Enregistré");
+    }catch(e){
+      console.error(e);
+      setSave("Échec de l’enregistrement : " + (e.message || "erreur inconnue") + ". La liste a été rechargée.");
+      try{ await loadRemote(); render(); }catch(_){}
+    }
+  }
+
+  const api = {
+    addPerson: p => sync(() => sb.from("people").insert(personRow(p))),
+    updatePerson: p => sync(() => sb.from("people").update(personRow(p)).eq("id", p.id)),
+    deletePerson: p => sync(() => sb.from("people").delete().eq("id", p.id)),
+    addGift: (p,g) => sync(() => sb.from("gifts").insert(giftRow(p,g))),
+    updateGift: (p,g) => sync(() => sb.from("gifts").update(giftRow(p,g)).eq("id", g.id)),
+    deleteGift: g => sync(() => sb.from("gifts").delete().eq("id", g.id)),
+  };
+
+  /* ---------- Compte à rebours ---------- */
+  function countdown(){
+    const now = new Date();
+    const today = new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    let xmas = new Date(now.getFullYear(),11,25);
+    if (today > xmas) xmas = new Date(now.getFullYear()+1,11,25);
+    const d = Math.round((xmas - today)/86400000);
+    $("#days").textContent = d === 0 ? "🎄" : d;
+    $("#daysLabel").textContent = d === 0 ? "C’est Noël !" : (d === 1 ? "jour avant Noël" : "jours avant Noël");
+  }
+
+  /* ---------- Affichage ---------- */
+  const spentOf = p => p.gifts.filter(g=>g.status!=="idee").reduce((a,g)=>a+(Number(g.price)||0),0);
+  const plannedOf = p => p.gifts.reduce((a,g)=>a+(Number(g.price)||0),0);
+  const hasPrice = g => g.price!==""&&g.price!=null;
+
+  function renderSummary(){
+    let spent=0,budget=0,toBuy=0,wrapped=0;
+    state.people.forEach(p=>{
+      spent+=spentOf(p); budget+=Number(p.budget)||0;
+      p.gifts.forEach(g=>{ if(g.status==="idee") toBuy++; if(g.status==="emballe") wrapped++; });
+    });
+    $("#sSpent").textContent = eur(spent);
+    $("#sBudget").textContent = budget? eur(budget) : "—";
+    $("#sToBuy").textContent = toBuy;
+    $("#sWrapped").textContent = wrapped;
+    const pct = budget? Math.round(spent/budget*100) : 0;
+    const r = $("#ribbon");
+    r.classList.toggle("over", budget>0 && spent>budget);
+    r.firstElementChild.style.width = Math.min(100,pct)+"%";
+    if (!budget){ $("#rLeft").textContent = "Ajoutez un budget à vos proches pour suivre vos dépenses."; $("#rPct").textContent=""; }
+    else if (spent>budget){ $("#rLeft").textContent = "Budget dépassé de "+eur(spent-budget); $("#rPct").textContent = pct+" %"; }
+    else { $("#rLeft").textContent = "Il reste "+eur(budget-spent); $("#rPct").textContent = pct+" % du budget"; }
+  }
+
+  function renderPeople(){
+    if (!state.people.length){
+      return `<div class="empty"><h2>Pour qui cherchez-vous un cadeau ?</h2><p>Ajoutez un premier proche pour commencer à noter vos idées.</p><button class="btn" data-act="add-person">Ajouter un proche</button></div>`;
+    }
+    return `<div class="grid">${state.people.map(p=>{
+      const spent=spentOf(p), planned=plannedOf(p), b=Number(p.budget)||0;
+      const budgetLine = b
+        ? `<span>Dépensé <b>${eur(spent)}</b> sur ${eur(b)}</span>${spent>b?`<span class="over">+${eur(spent-b)}</span>`:`<span>Prévu ${eur(planned)}</span>`}`
+        : `<span>Dépensé <b>${eur(spent)}</b></span><span>Prévu ${eur(planned)}</span>`;
+      const gifts = p.gifts.map(g=>{
+        const url=safeUrl(g.link);
+        const title = url? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(g.title)}</a>` : esc(g.title);
+        const meta = [g.where, g.note].filter(Boolean).map(esc).join(" · ");
+        return `<li class="${g.status!=="idee"?"done":""}">
+          <button class="chip ${g.status}" data-act="cycle" data-p="${p.id}" data-g="${g.id}" title="Changer le statut">${STATUS[g.status]}</button>
+          <div><div class="g-title">${title}</div>${meta?`<div class="g-meta">${meta}</div>`:""}</div>
+          <div style="display:flex;align-items:center;gap:2px">${hasPrice(g)?`<span class="g-price">${eur(g.price)}</span>`:""}
+          <button class="icon" data-act="edit-gift" data-p="${p.id}" data-g="${g.id}" aria-label="Modifier ${esc(g.title)}">${ICON_EDIT}</button></div>
+        </li>`;
+      }).join("");
+      return `<article class="person">
+        <div class="p-head"><div><h2 class="p-name">${esc(p.name)}</h2>${p.note?`<p class="p-note">${esc(p.note)}</p>`:""}</div>
+        <button class="icon" data-act="edit-person" data-p="${p.id}" aria-label="Modifier ${esc(p.name)}">${ICON_EDIT}</button></div>
+        <div class="p-budget">${budgetLine}</div>
+        ${gifts?`<ul class="gifts">${gifts}</ul>`:""}
+        <button class="add-gift" data-act="add-gift" data-p="${p.id}">Ajouter une idée</button>
+      </article>`;
+    }).join("")}</div>`;
+  }
+
+  function renderShop(){
+    const items=[];
+    state.people.forEach(p=>p.gifts.forEach(g=>items.push({p,g})));
+    if (!items.length) return `<div class="empty"><h2>Rien à acheter pour l’instant</h2><p>Les idées que vous ajoutez à vos proches apparaîtront ici.</p></div>`;
+    const groups=[["idee","À acheter"],["achete","Achetés, à emballer"],["emballe","Emballés"]];
+    let html="";
+    groups.forEach(([s,label])=>{
+      const list=items.filter(x=>x.g.status===s);
+      if(!list.length) return;
+      const total=list.reduce((a,x)=>a+(Number(x.g.price)||0),0);
+      html+=`<div class="shop-group">${label} (${list.length})${total?` — ${eur(total)}`:""}</div>`;
+      list.forEach(({p,g})=>{
+        const url=safeUrl(g.link);
+        const title=url?`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer" style="color:inherit">${esc(g.title)}</a>`:esc(g.title);
+        html+=`<div class="shop-row">
+          <input type="checkbox" class="check" data-act="check" data-p="${p.id}" data-g="${g.id}" ${s!=="idee"?"checked":""} aria-label="${s==="idee"?"Marquer comme acheté":"Remettre en idée"}">
+          <div><div class="g-title">${title}</div><div class="who">Pour ${esc(p.name)}${g.where?` · ${esc(g.where)}`:""}</div></div>
+          <span class="chip ${g.status}">${STATUS[g.status]}</span>
+          <span class="g-price">${hasPrice(g)?eur(g.price):""}</span>
+        </div>`;
+      });
+    });
+    return `<div class="shop">${html}</div>`;
+  }
+
+  function render(){
+    renderSummary();
+    $("#view").innerHTML = tab==="people" ? renderPeople() : renderShop();
+    document.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-selected", b.dataset.tab===tab));
+  }
+
+  const findP = id => state.people.find(p=>p.id===id);
+  const findG = (p,id) => p && p.gifts.find(g=>g.id===id);
+
+  /* ---------- Fenêtres ---------- */
+  let editP=null, editG=null, giftOwner=null;
+  function openPerson(p){
+    editP=p||null;
+    $("#dPersonTitle").textContent = p? "Modifier "+p.name : "Ajouter un proche";
+    $("#pName").value = p?p.name:""; $("#pBudget").value = p&&p.budget!=null?p.budget:""; $("#pNote").value = p?p.note||"":"";
+    $("#pDelete").hidden = !p;
+    $("#dPerson").showModal(); $("#pName").focus();
+  }
+  function openGift(p,g){
+    giftOwner=p; editG=g||null;
+    $("#dGiftTitle").textContent = g? "Modifier le cadeau" : "Une idée pour "+p.name;
+    $("#gTitle").value=g?g.title:""; $("#gPrice").value=g&&g.price!=null?g.price:"";
+    $("#gStatus").value=g?g.status:"idee"; $("#gWhere").value=g?g.where||"":"";
+    $("#gLink").value=g?g.link||"":""; $("#gNote").value=g?g.note||"":"";
+    $("#gDelete").hidden=!g;
+    $("#dGift").showModal(); $("#gTitle").focus();
+  }
+  document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>b.closest("dialog").close()));
+
+  $("#fPerson").addEventListener("submit",e=>{
+    const name=$("#pName").value.trim(); if(!name){e.preventDefault();return;}
+    const budget=$("#pBudget").value===""?null:Math.max(0,Number($("#pBudget").value));
+    const note=$("#pNote").value.trim();
+    if(editP){ Object.assign(editP,{name,budget,note}); api.updatePerson(editP); }
+    else { const p={id:uid(),name,budget,note,gifts:[]}; state.people.push(p); api.addPerson(p); }
+  });
+  $("#pDelete").addEventListener("click",()=>{
+    if(!editP) return;
+    const p=editP, n=p.gifts.length;
+    if(!confirm(`Supprimer ${p.name}${n?` et ses ${n} cadeau${n>1?"x":""}`:""} ?`)) return;
+    state.people=state.people.filter(x=>x!==p); $("#dPerson").close(); api.deletePerson(p);
+  });
+  $("#fGift").addEventListener("submit",e=>{
+    const title=$("#gTitle").value.trim(); if(!title||!giftOwner){e.preventDefault();return;}
+    const data={title, price:$("#gPrice").value===""?null:Math.max(0,Number($("#gPrice").value)),
+      status:$("#gStatus").value, where:$("#gWhere").value.trim(), link:$("#gLink").value.trim(), note:$("#gNote").value.trim()};
+    if(editG){ Object.assign(editG,data); api.updateGift(giftOwner,editG); }
+    else { const g={id:uid(),...data}; giftOwner.gifts.push(g); api.addGift(giftOwner,g); }
+  });
+  $("#gDelete").addEventListener("click",()=>{
+    if(!editG||!giftOwner) return;
+    const g=editG;
+    if(!confirm(`Supprimer « ${g.title} » ?`)) return;
+    giftOwner.gifts=giftOwner.gifts.filter(x=>x!==g); $("#dGift").close(); api.deleteGift(g);
+  });
+
+  /* ---------- Actions ---------- */
+  $("#addPerson").addEventListener("click",()=>openPerson());
+  document.querySelector(".tabs").addEventListener("click",e=>{
+    const b=e.target.closest("button[data-tab]"); if(!b) return; tab=b.dataset.tab; render();
+  });
+  $("#view").addEventListener("click",e=>{
+    const el=e.target.closest("[data-act]"); if(!el) return;
+    const p=findP(el.dataset.p), g=findG(p,el.dataset.g);
+    switch(el.dataset.act){
+      case "add-person": openPerson(); break;
+      case "edit-person": if(p) openPerson(p); break;
+      case "add-gift": if(p) openGift(p); break;
+      case "edit-gift": if(g) openGift(p,g); break;
+      case "cycle": if(g){ g.status=NEXT[g.status]; api.updateGift(p,g); } break;
+    }
+  });
+  $("#view").addEventListener("change",e=>{
+    const el=e.target.closest('[data-act="check"]'); if(!el) return;
+    const p=findP(el.dataset.p), g=findG(p,el.dataset.g);
+    if(g){ g.status = el.checked ? "achete" : "idee"; api.updateGift(p,g); }
+  });
+
+  /* ---------- Connexion par e-mail ---------- */
+  let channel=null, currentUserId=null;
+
+  function showApp(on){ $("#app").hidden=!on; $("#auth").hidden=on; }
+  function authMsg(t, err){ const m=$("#authMsg"); m.textContent=t||""; m.classList.toggle("err", !!err); }
+  function authScreen(mode, email){
+    showApp(false);
+    $("#fEmail").hidden = mode!=="login";
+    $("#sent").hidden = mode!=="sent";
+    $("#denied").hidden = mode!=="denied";
+    if (mode==="login"){
+      $("#authTitle").textContent="Connexion";
+      $("#authText").textContent="Saisissez votre adresse e-mail pour recevoir un lien de connexion.";
+    } else if (mode==="sent"){
+      $("#authTitle").textContent="Vérifiez vos e-mails";
+      $("#authText").textContent="Un lien de connexion a été envoyé à "+email+". Ouvrez-le depuis cet appareil et ce navigateur. Pensez à regarder dans les spams.";
+    } else if (mode==="denied"){
+      $("#authTitle").textContent="Accès non autorisé";
+      $("#authText").textContent="L’adresse "+email+" n’a pas accès à cette liste. Demandez à la personne qui gère le site de l’ajouter.";
+    }
+  }
+
+  async function sendLink(email, btn){
+    btn.disabled=true; authMsg("Envoi en cours…");
+    const {error} = await sb.auth.signInWithOtp({email, options:{emailRedirectTo: location.origin + location.pathname}});
+    btn.disabled=false;
+    if (error){
+      const tooMany = error.status===429 || /rate limit/i.test(error.message||"");
+      authMsg(tooMany ? "Trop de demandes de lien. Réessayez dans une heure." : "Envoi impossible : "+error.message, true);
+      return false;
+    }
+    authMsg(""); return true;
+  }
+  $("#fEmail").addEventListener("submit", async e=>{
+    e.preventDefault();
+    const email=$("#aEmail").value.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ authMsg("Saisissez une adresse e-mail valide.", true); return; }
+    if (await sendLink(email, $("#aSend"))) authScreen("sent", email);
+  });
+  $("#aResend").addEventListener("click", async ()=>{
+    const email=$("#aEmail").value.trim().toLowerCase();
+    if (await sendLink(email, $("#aResend"))) authMsg("Nouveau lien envoyé.");
+  });
+  $("#aBack").addEventListener("click",()=>{ authMsg(""); authScreen("login"); $("#aEmail").focus(); });
+  const logout = async ()=>{ await sb.auth.signOut(); };
+  $("#logout").addEventListener("click", logout);
+  $("#aLogoutDenied").addEventListener("click", logout);
+
+  // Mise à jour en direct quand quelqu'un d'autre modifie la liste
+  let t=null;
+  const refresh = () => { clearTimeout(t); t=setTimeout(()=>{
+    if (document.querySelector("dialog[open]")) return refresh(); // ne pas perturber une saisie en cours
+    loadRemote().then(render).catch(console.error);
+  }, 400); };
+  function startRealtime(){
+    if (channel) return;
+    channel = sb.channel("noel")
+      .on("postgres_changes",{event:"*",schema:"public",table:"people"},refresh)
+      .on("postgres_changes",{event:"*",schema:"public",table:"gifts"},refresh)
+      .subscribe();
+  }
+  function stopRealtime(){ if (channel){ sb.removeChannel(channel); channel=null; } }
+
+  async function handleSession(session){
+    if (!session){
+      currentUserId=null; stopRealtime(); state={people:[]};
+      $("#whoBar").hidden=true; authScreen("login"); return;
+    }
+    if (session.user.id===currentUserId) return; // simple rafraîchissement du jeton
+    currentUserId=session.user.id;
+    const email=session.user.email||"";
+    $("#whoEmail").textContent=email; $("#whoBar").hidden=false;
+    authMsg("");
+    const {data:allowed, error} = await sb.rpc("is_allowed");
+    if (error){ authScreen("login"); authMsg("Vérification de l’accès impossible : "+error.message, true); currentUserId=null; return; }
+    if (!allowed){ authScreen("denied", email); return; }
+    showApp(true); render(); setSave("Chargement…");
+    try{ await loadRemote(); render(); setSave(""); }
+    catch(e){ console.error(e); setSave("Impossible de charger la liste : "+(e.message||"erreur inconnue")); }
+    startRealtime();
+  }
+
+  /* ---------- Démarrage ---------- */
+  countdown();
+  if (!sb){
+    showApp(true); loadLocal(); render();
+    setSave(configured ? "Supabase indisponible : enregistrement sur cet appareil." : "Mode local : configurez config.js pour partager la liste.");
+    return;
+  }
+  showApp(false);
+  // Les appels à Supabase sont décalés hors du rappel, comme le recommande la bibliothèque.
+  sb.auth.onAuthStateChange((event, session)=>{ setTimeout(()=>handleSession(session), 0); });
+})();
+</script>
+</body>
+</html>
